@@ -1,0 +1,19 @@
+{
+  "name": "adi-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio for adi",
+  "source": "./index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build --dist-dir dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "author": "Anmol Aditya Sinha",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "parcel": "^2.7.0"
+  }
+}
