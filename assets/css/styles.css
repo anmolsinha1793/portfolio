@@ -1115,4 +1115,15 @@ body.light__theme {
     padding: 0.4rem;
     border-radius: 0.5rem;
   }
+  .disabled__button {
+    opacity: 0.4;
+  }
+  .error__val {
+    border: 1px solid red;
+  }
+  .work__card {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
 }

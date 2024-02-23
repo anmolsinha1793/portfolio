@@ -135,10 +135,76 @@ sr.reveal(`.home__social, .home__scroll`, {delay: 900, origin:  'bottom'})
 // SEND BUTTON 
 const ids = ['form__name', 'form__mail', 'form__project'];
 document.getElementById('send__button').addEventListener('click', (e) => {
+    const invalids = [];
+    ids.forEach((elm) => {
+        if(!document.forms['contact_form'][elm].value) {
+            invalids.push(elm.split('__')[1]);
+            document.forms['contact_form'][elm].classList.add('error__val');
+        }
+        if(elm === 'form__mail' && document.forms['contact_form'][elm].value) {
+            if(!document.forms['contact_form'][elm].value.toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )) {
+                    invalids.push(elm.split('__')[1]);
+                    document.forms['contact_form'][elm].classList.add('error__val');
+                }
+        }
+    })
+    if (invalids.length) {
+        window.alert(`Please enter valid value for ${invalids.join(',')} field(s)`);
+        document.getElementById('send__button').classList.add('disabled__button');
+        return;
+    }
     window.alert('Message sent');
     ids.forEach((elm) => {
         const element = document.getElementById(elm);
         element.value = '';
     })
     e.preventDefault();
+})
+
+document.getElementById('form__name').addEventListener('input', (e) => {
+    e.target.value ?
+    document.forms['contact_form']['form__name'].classList.remove('error__val') : document.forms['contact_form']['form__name'].classList.add('error__val');
+    if (document.forms['contact_form']['form__mail'].value.toLowerCase()
+    .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ) && document.forms['contact_form']['form__project'].value) {
+            document.getElementById('send__button').classList.remove('disabled__button');
+        }
+    if (!e.target.value) {
+        document.getElementById('send__button').classList.add('disabled__button');
+    }
+});
+document.getElementById('form__mail').addEventListener('input', (e) => {
+    if (!e.target.value) {
+        document.getElementById('send__button').classList.add('disabled__button');
+    }
+    if(document.forms['contact_form']['form__mail'].value.toLowerCase()
+    .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+            document.forms['contact_form']['form__mail'].classList.remove('error__val');
+            if (document.forms['contact_form']['form__name'].value && document.forms['contact_form']['form__project'].value) {
+                    document.getElementById('send__button').classList.remove('disabled__button');
+                }
+        }
+    else {
+        document.forms['contact_form']['form__mail'].classList.add('error__val');
+        document.getElementById('send__button').classList.add('disabled__button');
+    }
+})
+document.getElementById('form__project').addEventListener('input', (e) => {
+    e.target.value ?
+    document.forms['contact_form']['form__project'].classList.remove('error__val') : document.forms['contact_form']['form__project'].classList.add('error__val');
+    if (document.forms['contact_form']['form__mail'].value.toLowerCase()
+    .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ) && document.forms['contact_form']['form__name'].value) {
+            document.getElementById('send__button').classList.remove('disabled__button');
+        }
+        if (!e.target.value) {
+            document.getElementById('send__button').classList.add('disabled__button');
+        }
 })

@@ -119,7 +119,7 @@
                             <div class="about__box">
                                 <i class='bx bx-award about__icon' ></i>
                                 <h3 class="about__title">Experience</h3>
-                                <span class="about__subtitle">7 Years Working</span>
+                                <span class="about__subtitle">7 Years Work Experience</span>
                             </div>
                             <div class="about__box">
                                 <i class='bx bx-briefcase-alt about__icon' ></i>
@@ -134,8 +134,8 @@
                         </div>
 
                         <p class="about__description">
-                            Frontend developer, I created web pages with UI / UX user interface,
-                            I have years of experience and many clients are happy with the projects carried out.
+                            Frontend developer but also experienced in backend and deployment, I created complex web applications as per the different requirements of the customers,
+                            I have years of experience and many customers/clients are happy and appreciated me well with the projects carried out.
                         </p>
 
                         <a href="#contact" class="button">Contact Me</a>
@@ -240,13 +240,57 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="skills__content">
+                        <h3 class="skills__title">Devops Developer</h3>
+
+                        <div class="skills__box">
+                            <div class="skills__group">
+                                <div class="skills__data">
+                                    <i class='bx bxs-badge-check'></i>
+                                    <div>
+                                        <h3 class="skills__name">Docker and Kubernetes</h3>
+                                        <span class="skills__level">Basic</span>
+                                    </div>
+                                </div>
+
+                                <div class="skills__data">
+                                    <i class='bx bxs-badge-check'></i>
+
+                                    <div>
+                                        <h3 class="skills__name">Azure</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                    </div>
+                                </div>
+
+                                <div class="skills__data">
+                                    <i class='bx bxs-badge-check'></i>
+
+                                    <div>
+                                        <h3 class="skills__name">Github Pages</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="skills__group">
                                 <div class="skills__data">
                                     <i class='bx bxs-badge-check'></i>
                                     <div>
-                                        <h3 class="skills__name">Docker</h3>
-                                        <span class="skills__level">Basic</span>
+                                        <h3 class="skills__name">Gitlab</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skills__group">
+                                <div class="skills__data">
+                                    <i class='bx bxs-badge-check'></i>
+                                    <div>
+                                        <h3 class="skills__name">Vercel</h3>
+                                        <span class="skills__level">Intermediate</span>
                                     </div>
                                 </div>
                             </div>
@@ -435,12 +479,15 @@
                 <div class="work__conatiner container grid">
                     <div class="work__card mix web">
                         <img src="assets/img/work1.jpg" alt="" class="work__img">
+                        <span>
+                            <h3 class="work__title">A small application based on react and docker</h3>
 
-                        <h3 class="work__title">A small application based on react and docker</h3>
+                            <a href="https://spacex-mission-react.vercel.app/missions" class="work__button">
+                                Demo <i class='bx bx-right-arrow-alt work__icon' ></i>
+                            </a>
 
-                        <a href="https://spacex-mission-react.vercel.app/missions" class="work__button">
-                            Demo <i class='bx bx-right-arrow-alt work__icon' ></i>
-                        </a>
+                        </span>
+                        
                     </div>
 
                     <!-- <div class="work__card mix mobile">
@@ -497,27 +544,27 @@
                         <div class="testimonial__card swiper-slide">
                             <img src="assets/img/testimonial1.png" alt="" class="testimonial__img">
 
-                            <h3 class="testimonial__name">John</h3>
+                            <h3 class="testimonial__name">Gabe</h3>
                             <p class="testimonial__description">
-                                A really good job, all the aspects of the project were followed step by step and yeilded good results.
+                                A really good job, with respect to such a complex application, specially when it had to be started from scratch and the first milestone got delivered within 6 months.
                             </p>
                         </div>
 
                         <div class="testimonial__card swiper-slide">
                             <img src="assets/img/testimonial2.png" alt="" class="testimonial__img">
 
-                            <h3 class="testimonial__name">Gabe</h3>
+                            <h3 class="testimonial__name">Sasha</h3>
                             <p class="testimonial__description">
-                                A really good job, all the aspects of the project were followed step by step and yeilded good results.
+                                Great job with initial pick up of the project and good efforts in keeping the timelines under check and focused on delivering quality code by always keeping an eye on code standards such as sonarqube, tslint, eslint, jest.
                             </p>
                         </div>
 
                         <div class="testimonial__card swiper-slide">
                             <img src="assets/img/testimonial3.png" alt="" class="testimonial__img">
 
-                            <h3 class="testimonial__name">Cora</h3>
+                            <h3 class="testimonial__name">Andrew</h3>
                             <p class="testimonial__description">
-                                A really good job, all the aspects of the project were followed step by step and yeilded good results.
+                                Really appreciate the efforts in thinking out of the box with respect to the initial design of the application and giving in extra hours with designers to come up with a viable option.
                             </p>
                         </div>
                     </div>
@@ -569,20 +616,20 @@
                     <div class="contact__content">
                         <h3 class="contact__title">Write me your project</h3>
 
-                        <form action="" class="contact__form">
+                        <form name="contact_form" action="" class="contact__form">
                             <div class="contact__form__div">
                                 <label for="" class="contact__form__tag">Names</label>
-                                <input type="text" placeholder="Insert your name" class="contact__form__input" id="form__name"/>
+                                <input type="text" placeholder="Insert your name" class="contact__form__input" name="form__name" id="form__name" required/>
                             </div>
 
                             <div class="contact__form__div">
                                 <label for="" class="contact__form__tag">Mail</label>
-                                <input type="email" placeholder="Insert your email" class="contact__form__input" id="form__mail"/>
+                                <input type="email" placeholder="Insert your email" class="contact__form__input" name="form__mail" id="form__mail" required/>
                             </div>
 
                             <div class="contact__form__div contact__form__area">
                                 <label for="" class="contact__form__tag">Project</label>
-                                <textarea type="text" placeholder="Insert your project" class="contact__form__input" id="form__project"></textarea>
+                                <textarea type="text" placeholder="Insert your project" class="contact__form__input" name="form__project" id="form__project" required></textarea>
                             </div>
 
                             <button class="button" id="send__button">Send Message</button>
