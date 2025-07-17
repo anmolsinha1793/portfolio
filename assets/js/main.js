@@ -6,6 +6,13 @@ function scrollHeader(){
 }
 window.addEventListener('scroll', scrollHeader)
 
+/*=============== ENABLE LIGHT SWITCH SOUND ===============*/
+function handleClickSound() {
+    const mouseclick = new Audio();
+    mouseclick.src = "https://uploads.sitepoint.com/wp-content/uploads/2023/06/1687569402mixkit-fast-double-click-on-mouse-275.wav";
+    mouseclick.play();
+}
+
 /*=============== SERVICES MODAL ===============*/
 const modalViews = document.querySelectorAll('.services__modal');
 const modalButtons = document.querySelectorAll('.services__button');
