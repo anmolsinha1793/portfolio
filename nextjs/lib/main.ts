@@ -2,13 +2,22 @@
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 
-const THEME_KEY = 'selected-theme';
 const LIGHT_THEME = 'light__theme';
 
-/** Stored value `'dark'` has always meant "light__theme class applied". */
+/**
+ * Dark is the default. The stored value is the literal theme name.
+ *
+ * The original site stored this under `selected-theme` with inverted semantics
+ * (`'dark'` meant "light__theme applied"), so a leftover value from the old
+ * site would open the new one in light mode. That key is deliberately ignored
+ * and cleared — hence the rename rather than a reuse.
+ */
+const THEME_KEY = 'theme';
+const LEGACY_THEME_KEY = 'selected-theme';
+
 const readStoredLight = () => {
   try {
-    return window.localStorage.getItem(THEME_KEY) === 'dark';
+    return window.localStorage.getItem(THEME_KEY) === 'light';
   } catch {
     return false;
   }
@@ -25,7 +34,8 @@ const subscribeToTheme = (listener: () => void) => {
 
 const writeStoredLight = (isLight: boolean) => {
   try {
-    window.localStorage.setItem(THEME_KEY, isLight ? 'dark' : 'light');
+    window.localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+    window.localStorage.removeItem(LEGACY_THEME_KEY);
   } catch {
     // Storage can be unavailable (private mode); the toggle still works.
   }
