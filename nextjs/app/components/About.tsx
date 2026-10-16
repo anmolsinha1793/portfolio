@@ -1,3 +1,4 @@
+import { asset } from '@/lib/asset';
 import {
   BUTTON,
   CONTAINER,
@@ -35,7 +36,7 @@ export default function About() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/img/prof__pic2.png"
+          src={asset('/assets/img/prof__pic2.png')}
           alt=""
           className="w-[220px] justify-self-center rounded-3xl lg:w-[350px]"
         />

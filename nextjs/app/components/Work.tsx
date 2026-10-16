@@ -1,17 +1,18 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { asset } from '@/lib/asset';
 import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
 const PROJECTS = [
   {
-    image: '/assets/img/work2.jpg',
+    image: asset('/assets/img/work2.jpg'),
     title:
       'A small application based on angular, husky hooks, internationalization and D3.js',
     href: 'https://angular-d3-charts-vw22.vercel.app/chart',
   },
   {
-    image: '/assets/img/work3.jpg',
+    image: asset('/assets/img/work3.jpg'),
     title: 'A small application based on react and docker',
     href: 'https://spacex-mission-react.vercel.app/missions',
   },

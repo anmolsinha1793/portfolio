@@ -4,23 +4,24 @@ import { useEffect, useRef } from 'react';
 import { Swiper } from 'swiper/bundle';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { asset } from '@/lib/asset';
 import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
 const TESTIMONIALS = [
   {
-    image: '/assets/img/testimonial1.png',
+    image: asset('/assets/img/testimonial1.png'),
     name: 'Gabe',
     description:
       'A really good job, with respect to such a complex application, specially when it had to be started from scratch and the first milestone got delivered within 6 months.',
   },
   {
-    image: '/assets/img/testimonial2.png',
+    image: asset('/assets/img/testimonial2.png'),
     name: 'Sasha',
     description:
       'Great job with initial pick up of the project and good efforts in keeping the timelines under check and focused on delivering quality code by always keeping an eye on code standards such as sonarqube, tslint, eslint, jest.',
   },
   {
-    image: '/assets/img/testimonial3.png',
+    image: asset('/assets/img/testimonial3.png'),
     name: 'Andrew',
     description:
       'Really appreciate the efforts in thinking out of the box with respect to the initial design of the application and giving in extra hours with designers to come up with a viable option.',

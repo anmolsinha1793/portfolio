@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageEffects from '@/app/components/PageEffects';
+import { asset } from '@/lib/asset';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href={asset('/assets/img/favicon.png')} type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router rule misfires; fonts are loaded once in this root layout */}

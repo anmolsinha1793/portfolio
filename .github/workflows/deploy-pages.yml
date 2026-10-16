@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+# Builds the Next.js app in nextjs/ as a static export and publishes it.
+# The app lives in a subdirectory, so every step sets working-directory.
+# GITHUB_PAGES=true switches next.config.ts into export mode with a
+# /portfolio base path — the path Pages serves project sites from.
+
+on:
+  push:
+    branches: [nextjs]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: nextjs/package-lock.json
+
+      - name: Install dependencies
+        working-directory: nextjs
+        run: npm ci
+
+      - name: Build static export
+        working-directory: nextjs
+        env:
+          GITHUB_PAGES: 'true'
+        run: npm run build
+
+      # Pages runs Jekyll by default, which drops directories beginning with an
+      # underscore — that would delete the whole _next asset folder.
+      - name: Disable Jekyll
+        run: touch nextjs/out/.nojekyll
+
+      - name: Confirm export produced output
+        run: |
+          test -f nextjs/out/index.html || { echo "no index.html in nextjs/out"; exit 1; }
+          echo "exported files: $(find nextjs/out -type f | wc -l)"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: nextjs/out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { asset } from '@/lib/asset';
 import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
 /**
@@ -83,7 +84,7 @@ export default function Certificates() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/assets/certificates/thumbs/${certificate.slug}-sm.jpg`}
+              src={asset(`/assets/certificates/thumbs/${certificate.slug}-sm.jpg`) }
               alt=""
               loading="lazy"
               className="w-full rounded-lg"
@@ -118,7 +119,7 @@ export default function Certificates() {
 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/assets/certificates/thumbs/${active.slug}-lg.jpg`}
+              src={asset(`/assets/certificates/thumbs/${active.slug}-lg.jpg`) }
               alt={`${active.title} certificate`}
               className="max-h-[80vh] w-full rounded-xl bg-white object-contain"
             />

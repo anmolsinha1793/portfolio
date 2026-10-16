@@ -1,3 +1,4 @@
+import { asset } from '@/lib/asset';
 import { BUTTON, BUTTON_GHOST, CONTAINER, SECTION } from './styles';
 
 const SOCIALS = [
@@ -39,7 +40,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-6 [@media(max-width:320px)]:flex-col">
             <a
               download=""
-              href="/assets/pdf/Adi-resume-pdf.pdf"
+              href={asset('/assets/pdf/Adi-resume-pdf.pdf')}
               className={BUTTON_GHOST}
             >
               Download CV
@@ -53,7 +54,7 @@ export default function Home() {
         <div className="flex h-[293px] w-[190px] items-end justify-center justify-self-center overflow-hidden rounded-t-[10rem] rounded-b-[1rem] bg-[linear-gradient(180deg,hsla(var(--first-hue),var(--sat),var(--lig),1),hsla(var(--first-hue),var(--sat),var(--lig),0.2))] [@media(max-width:320px)]:h-[253px] [@media(max-width:320px)]:w-[150px] lg:h-[300px] lg:w-[220px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/img/prof__pic2.jpeg"
+            src={asset('/assets/img/prof__pic2.jpeg')}
             alt="Anmol Aditya Sinha"
             className="w-40 [@media(max-width:320px)]:w-[130px] lg:w-[220px]"
           />
