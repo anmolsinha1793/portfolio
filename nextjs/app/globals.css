@@ -1,26 +1,327 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*================================================================
+  Custom variant: light theme.
+  The theme is switched by toggling `light__theme` on <body>
+  (see lib/main.ts). Dark is the default.
+================================================================*/
+@custom-variant light (&:where(.light__theme, .light__theme *));
 
+/*================================================================
+  Theme tokens.
+  `inline` is required for anything that resolves to a runtime CSS
+  variable: the utility emits `var(--token)` rather than a build-time
+  copy, so redefining the token on `body.light__theme` still works.
+================================================================*/
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-body: "Poppins", sans-serif;
+
+  --color-first: var(--first-color);
+  --color-first-alt: var(--first-color-alt);
+  --color-title: var(--title-color);
+  --color-text: var(--text-color);
+  --color-text-light: var(--text-color-light);
+  --color-body: var(--body-color);
+  --color-container: var(--container-color);
+
+  /* Typography scale resolves to the runtime vars so the
+     968px responsive bump keeps working without breakpoint variants.
+     The paired line-height is pinned to `normal` because the original
+     stylesheet never set one — Tailwind's defaults would otherwise
+     inject a line-height and shift every text box. */
+  --text-biggest: var(--biggest-font-size);
+  --text-biggest--line-height: normal;
+  --text-h1: var(--h1-font-size);
+  --text-h1--line-height: normal;
+  --text-h2: var(--h2-font-size);
+  --text-h2--line-height: normal;
+  --text-h3: var(--h3-font-size);
+  --text-h3--line-height: normal;
+  --text-normal: var(--normal-font-size);
+  --text-normal--line-height: normal;
+  --text-small: var(--small-font-size);
+  --text-small--line-height: normal;
+  --text-smaller: var(--smaller-font-size);
+  --text-smaller--line-height: normal;
+  --text-tiny: var(--tiny-font-size);
+  --text-tiny--line-height: normal;
 }
 
-@media (prefers-color-scheme: dark) {
+@theme {
+  /* Breakpoints mirroring the original stylesheet exactly.
+     The two inverted (max-width) queries use Tailwind's built-in
+     `max-*` variants instead of being forced onto this scale. */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 767px;
+  --breakpoint-lg: 992px;
+
+  /* A few places use Tailwind's built-in sizes directly (text-xl for the
+     nav links, text-base for the social icons). The original stylesheet
+     never set a line-height, so pin these too — otherwise Tailwind
+     injects one and every text box shifts. */
+  --text-xs--line-height: normal;
+  --text-sm--line-height: normal;
+  --text-base--line-height: normal;
+  --text-lg--line-height: normal;
+  --text-xl--line-height: normal;
+  --text-2xl--line-height: normal;
+  --text-3xl--line-height: normal;
+  --text-4xl--line-height: normal;
+}
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --header-height: 3.5rem;
+
+    --first-hue: 207;
+    --sat: 90%;
+    --lig: 72%;
+    --second-hue: 219;
+
+    --first-color: hsl(var(--first-hue), var(--sat), var(--lig));
+    --first-color-alt: hsl(var(--first-hue), var(--sat), 68%);
+
+    --title-color: hsl(var(--second-hue), 15%, 95%);
+    --text-color: hsl(var(--second-hue), 8%, 75%);
+    --text-color-light: hsl(var(--second-hue), 4%, 55%);
+    --body-color: hsl(var(--second-hue), 48%, 8%);
+    --container-color: hsl(var(--second-hue), 32%, 12%);
+
+    --body-font: "Poppins", sans-serif;
+
+    --biggest-font-size: 1.75rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: 0.938rem;
+    --small-font-size: 0.813rem;
+    --smaller-font-size: 0.75rem;
+    --tiny-font-size: 0.625rem;
+
+    --font-medium: 500;
+    --font-semibold: 600;
+  }
+
+  /* Light theme only redefines the four surface colours; the accent
+     and --text-color-light are deliberately left alone. */
+  body.light__theme {
+    --title-color: hsl(var(--second-hue), 15%, 15%);
+    --text-color: hsl(var(--second-hue), 8%, 35%);
+    --body-color: hsl(var(--second-hue), 100%, 99%);
+    --container-color: #fff;
+  }
+
+  @media screen and (min-width: 968px) {
+    :root {
+      --biggest-font-size: 2.5rem;
+      --h1-font-size: 2.25rem;
+      --h2-font-size: 1.5rem;
+      --h3-font-size: 1.25rem;
+      --normal-font-size: 1rem;
+      --small-font-size: 0.875rem;
+      --smaller-font-size: 0.813rem;
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    :root {
+      /* 12px is the practical minimum for phone reading */
+      --tiny-font-size: 0.75rem;
+    }
+  }
+
+  /* Reset block, reproduced from the original stylesheet and layered
+     after Tailwind's preflight so it wins. */
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Preflight sets `line-height: 1.5` on html. The original stylesheet
+       never set one, so every element without an explicit line-height
+       inherited `normal`. Restore that or every text box grows. */
+    line-height: normal;
+  }
+
+  body,
+  button,
+  input,
+  textarea {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+  }
+
+  body {
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition: 0.4s;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--title-color);
+    font-weight: var(--font-semibold);
+  }
+
+  /* Preflight resets heading font-size to `inherit`. The original stylesheet
+     relied on the browser defaults for any heading without an explicit size
+     (the footer title, for one), so restore them. */
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.17em;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h5 {
+    font-size: 0.83em;
+  }
+
+  h6 {
+    font-size: 0.67em;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*================================================================
+  Rules Tailwind cannot express as utilities. Each is deliberate.
+================================================================*/
+@layer components {
+  /* No utility namespace exists for scrollbar pseudo-elements. */
+  ::-webkit-scrollbar {
+    width: 0.6rem;
+    border-radius: 0.5rem;
+    background-color: hsl(var(--second-hue), 8%, 38%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--second-hue), 8%, 26%);
+    border-radius: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--second-hue), 8%, 20%);
+  }
+
+  .light__theme::-webkit-scrollbar {
+    background-color: hsl(var(--second-hue), 8%, 66%);
+  }
+
+  .light__theme::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--second-hue), 8%, 54%);
+  }
+
+  .light__theme::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--second-hue), 8%, 44%);
+  }
+
+  /* Swiper generates this DOM at runtime, so it cannot be styled
+     with a className on our own elements. */
+  .swiper-pagination-bullet {
+    background-color: var(--text-color-light);
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: var(--first-color);
+  }
+
+  /* Styles the Boxicons glyph itself, reached from its section. */
+  .skills .bxs-badge-check {
+    font-size: 1rem;
+    color: var(--first-color);
+  }
+
+  /* ::after connector line under the social icons. The transform
+     differs above 992px. */
+  .home__social::after {
+    content: "";
+    width: 32px;
+    height: 2px;
+    background-color: var(--first-color);
+    transform: rotate(90deg) translate(16px, 3px);
+  }
+
+  .light__theme .home__social::after {
+    background-color: var(--title-color);
+  }
+
+  @media screen and (min-width: 992px) {
+    .home__social::after {
+      transform: rotate(90deg) translate(16px, 0);
+    }
+  }
+
+  /* Floating-label group: three elements whose absolute positioning
+     is coupled, including the label's notch cut-out.
+     The email input is permanently offset because the original rule
+     is a comma list, not a descendant selector. Preserved as-is. */
+  .contact__form__div {
+    position: relative;
+    margin-bottom: 2rem;
+    height: 4rem;
+  }
+
+  .contact__form__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--text-color-light);
+    background: none;
+    color: var(--text-color);
+    outline: none;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    z-index: 1;
+  }
+
+  .contact__form__tag {
+    position: absolute;
+    top: -0.75rem;
+    left: 1.25rem;
+    font-size: var(--smaller-font-size);
+    padding: 0.25rem;
+    background-color: var(--body-color);
+    z-index: 10;
+  }
+
+  .contact__form__area textarea {
+    resize: none;
+  }
+
+  .contact__button__icon {
+    transform: translateX(0.25rem);
+  }
 }
