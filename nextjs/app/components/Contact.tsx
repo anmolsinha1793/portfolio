@@ -17,7 +17,7 @@ const EMAIL_PATTERN =
  *
  * The form is inert until this is set — see SUBMIT_ENDPOINT below.
  */
-const WEB3FORMS_KEY = 'REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY';
+const WEB3FORMS_KEY = 'f03df988-c62e-404a-b806-4b87423b3929';
 const SUBMIT_ENDPOINT = 'https://api.web3forms.com/submit';
 const isConfigured = !WEB3FORMS_KEY.startsWith('REPLACE_WITH_');
 
