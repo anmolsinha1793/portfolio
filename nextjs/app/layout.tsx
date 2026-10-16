@@ -23,7 +23,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/assets/css/styles.css" />
+      </head>
+      <body className="min-h-full flex flex-col">{children}<script src="/assets/js/main.js" defer></script></body>
     </html>
   );
 }
