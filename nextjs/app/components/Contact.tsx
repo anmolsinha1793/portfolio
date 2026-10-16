@@ -6,6 +6,23 @@ import { CONTAINER, SECTION } from './styles';
 const EMAIL_PATTERN =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+/**
+ * Web3Forms access key. Get one free at https://web3forms.com by entering your
+ * email — no account needed — and paste it here.
+ *
+ * It lives in source rather than an env var on purpose: Web3Forms keys are
+ * designed to be public (they only permit sending mail *to* the address that
+ * registered them), and this app builds for both Vercel and GitHub Pages, so a
+ * source constant avoids configuring the same secret in two places.
+ *
+ * The form is inert until this is set — see SUBMIT_ENDPOINT below.
+ */
+const WEB3FORMS_KEY = 'REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY';
+const SUBMIT_ENDPOINT = 'https://api.web3forms.com/submit';
+const isConfigured = !WEB3FORMS_KEY.startsWith('REPLACE_WITH_');
+
+type SendStatus = 'idle' | 'sending' | 'sent' | 'error';
+
 const CONTACT_CARDS = [
   {
     icon: 'bx bx-mail-send contact__card__icon',
@@ -40,6 +57,7 @@ export default function Contact() {
     mail: false,
     project: false,
   });
+  const [status, setStatus] = useState<SendStatus>('idle');
 
   const isComplete =
     values.name.trim().length > 0 &&
@@ -51,7 +69,7 @@ export default function Contact() {
     setErrors((previous) => ({ ...previous, [field]: false }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const invalids: Field[] = [];
@@ -70,8 +88,53 @@ export default function Contact() {
       return;
     }
 
-    window.alert('Message sent');
-    setValues({ name: '', mail: '', project: '' });
+    if (!isConfigured) {
+      window.alert(
+        'The contact form has no Web3Forms access key yet. Add one in Contact.tsx.'
+      );
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      const response = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Portfolio enquiry from ${values.name}`,
+          from_name: values.name,
+          name: values.name,
+          email: values.mail,
+          message: values.project,
+          // Honeypot: Web3Forms rejects the submission when this is filled.
+          botcheck: new FormData(event.currentTarget).get('botcheck') ?? '',
+        }),
+      });
+
+      const result = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || `Request failed (${response.status})`);
+      }
+
+      window.alert('Message sent');
+      setValues({ name: '', mail: '', project: '' });
+    } catch (error) {
+      window.alert(
+        `Sorry, the message could not be sent. ${
+          error instanceof Error ? error.message : 'Please try again.'
+        }`
+      );
+    } finally {
+      setStatus('idle');
+    }
   };
 
   const inputClass = (field: Field) =>
@@ -120,6 +183,16 @@ export default function Contact() {
           <h3 className="mb-6 text-center text-h3">Write me your project</h3>
 
           <form name="contact_form" className="contact__form sm:mx-auto sm:w-[360px]" onSubmit={handleSubmit}>
+            {/* Honeypot: hidden from people, filled in by bots. Web3Forms
+                discards any submission where it is set. */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="hidden"
+            />
             <div className="contact__form__div">
               <label className="contact__form__tag" htmlFor="form__name">
                 Names
@@ -159,9 +232,10 @@ export default function Contact() {
             <button
               type="submit"
               id="send__button"
-              className={`inline-block rounded-[0.5rem] bg-first px-4 py-3 font-medium text-body [transition:.4s] hover:bg-first-alt hover:text-body light:text-title ${isComplete ? '' : 'disabled__button'}`}
+              disabled={status === 'sending'}
+              className={`inline-block rounded-[0.5rem] bg-first px-4 py-3 font-medium text-body [transition:.4s] hover:bg-first-alt hover:text-body light:text-title ${isComplete && status !== 'sending' ? '' : 'disabled__button'}`}
             >
-              Send Message
+              {status === 'sending' ? 'Sending…' : 'Send Message'}
             </button>
           </form>
         </div>
