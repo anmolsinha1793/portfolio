@@ -56,6 +56,22 @@ const SKILL_CARDS: SkillCard[] = [
       [{ name: 'Vercel', level: 'Intermediate' }],
     ],
   },
+  {
+    // Drawn from the Certified Scrum Master and Leadership certificates.
+    title: 'Leadership & Management',
+    groups: [
+      [
+        { name: 'Agile & Scrum', level: 'Intermediate' },
+        { name: 'Sprint Planning', level: 'Intermediate' },
+        { name: 'Backlog Refinement', level: 'Intermediate' },
+      ],
+      [
+        { name: 'Team Leadership', level: 'Intermediate' },
+        { name: 'Mentoring', level: 'Intermediate' },
+        { name: 'Stakeholder Communication', level: 'Intermediate' },
+      ],
+    ],
+  },
 ];
 
 export default function Skills() {

@@ -65,7 +65,7 @@ export default function Testimonial() {
         <div className="swiper-wrapper">
           {TESTIMONIALS.map((testimonial) => (
             <div
-              className="testimonial__card swiper-slide mb-12 rounded-3xl bg-container px-6 py-5 lg:px-8 lg:py-6"
+              className="testimonial__card swiper-slide mb-12 rounded-3xl bg-container px-6 py-5 light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)] lg:px-8 lg:py-6"
               key={testimonial.name}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

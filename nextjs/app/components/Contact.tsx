@@ -160,7 +160,7 @@ export default function Contact() {
 
           <div className="grid gap-4 sm:grid-cols-[300px] sm:justify-center">
             {CONTACT_CARDS.map((card) => (
-              <div className="rounded-xl bg-container p-4 text-center" key={card.title}>
+              <div className="rounded-xl bg-container p-4 text-center light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)]" key={card.title}>
                 <i className={card.icon}></i>
                 <h3 className="text-small font-medium">{card.title}</h3>
                 <span className="contact__card__detail">{card.detail}</span>

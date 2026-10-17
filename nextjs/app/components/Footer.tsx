@@ -24,12 +24,17 @@ const FOOTER_SOCIALS = [
   },
 ];
 
+/**
+ * Resolved once when the module loads rather than during render: `cacheComponents`
+ * rejects `new Date()` in the render path as an unstable value and fails the build.
+ * It is still a build-time snapshot, so the year updates on the next deploy.
+ */
+const COPYRIGHT_YEAR = new Date().getFullYear();
+
 export default function Footer() {
   return (
     <footer className="bg-first">
       <div className={`py-8 pb-24 ${CONTAINER}`}>
-        <h1 className="mb-8 text-center text-body light:text-title">Anmol</h1>
-
         <ul className="mb-8 flex justify-center gap-x-6">
           {FOOTER_LINKS.map((link) => (
             <li key={link.href}>
@@ -55,7 +60,15 @@ export default function Footer() {
           ))}
         </ul>
 
-        <span className="mt-18 block text-center text-small text-container light:text-title">&#169; All rights reserved</span>
+        <div className="mt-18 text-center text-small text-container light:text-title">
+          <span className="block font-medium">Anmol Aditya Sinha</span>
+          <span className="mt-1 block text-smaller">
+            AI/Gen AI Certified Engineer · Bengaluru, India
+          </span>
+          <span className="mt-1 block text-smaller">
+            © {COPYRIGHT_YEAR} · All rights reserved
+          </span>
+        </div>
       </div>
     </footer>
   );

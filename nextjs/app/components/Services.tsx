@@ -53,7 +53,7 @@ export default function Services() {
       >
         {SERVICES.map((service, index) => (
           <div
-            className="rounded-2xl bg-container px-6 pt-12 pb-6 lg:px-8 lg:pt-20 lg:pb-6"
+            className="rounded-2xl bg-container px-6 pt-12 pb-6 light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)] lg:px-8 lg:pt-20 lg:pb-6"
             key={service.title}
           >
             <h3 className="mb-10 text-h3">{service.title}</h3>

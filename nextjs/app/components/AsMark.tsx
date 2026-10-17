@@ -1,11 +1,14 @@
 /**
- * The AS monogram: the site's arch shape (top fully rounded, base barely
- * rounded — the same silhouette as the hero portrait) with the initials set
- * inside it.
+ * The AS monogram: a squircle (rounded square) with the initials knocked out.
  *
- * Colours come from the theme tokens rather than literals, so the mark follows
- * light/dark on its own: the arch stays the accent blue, and the initials take
- * the body colour, which is dark navy on dark and near-white on light.
+ * The two themes invert the mark rather than just recolouring it, so it stays
+ * the strongest thing on the nav in both:
+ *   dark  — accent-blue gradient tile, navy initials
+ *   light — navy tile, accent-blue initials
+ *
+ * Colours live in `globals.css` as `--mark-*` tokens so the swap follows the
+ * `.light__theme` class automatically. SVG presentation attributes do not
+ * accept `var()` reliably, hence the classes rather than inline fills.
  */
 export default function AsMark({ className }: { className?: string }) {
   return (
@@ -17,23 +20,28 @@ export default function AsMark({ className }: { className?: string }) {
       focusable="false"
     >
       <defs>
-        {/* Fixed id on purpose: every instance defines an identical gradient,
-            so duplicate ids resolve to the same definition. */}
-        <linearGradient id="as-mark-gradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" style={{ stopColor: 'var(--first-color)', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: 'var(--first-color)', stopOpacity: 0.22 }} />
+        <linearGradient id="as-squircle" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" className="as-mark-stop-a" />
+          <stop offset="100%" className="as-mark-stop-b" />
         </linearGradient>
       </defs>
-      <path d="M24 114 V56 A36 36 0 0 1 96 56 V114 Z" fill="url(#as-mark-gradient)" />
+      <rect
+        x="14"
+        y="14"
+        width="92"
+        height="92"
+        rx="27"
+        fill="url(#as-squircle)"
+      />
       <text
         x="60"
-        y="97"
+        y="76"
         textAnchor="middle"
         fontFamily="Poppins, sans-serif"
         fontWeight="600"
-        fontSize="34"
-        letterSpacing="-1"
-        style={{ fill: 'var(--body-color)' }}
+        fontSize="42"
+        letterSpacing="-2"
+        className="as-mark-initials"
       >
         AS
       </text>

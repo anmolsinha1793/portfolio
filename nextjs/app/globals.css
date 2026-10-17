@@ -14,7 +14,7 @@
   copy, so redefining the token on `body.light__theme` still works.
 ================================================================*/
 @theme inline {
-  --font-body: "Poppins", sans-serif;
+  --font-body: var(--font-poppins), "Poppins", sans-serif;
 
   --color-first: var(--first-color);
   --color-first-alt: var(--first-color-alt);
@@ -73,7 +73,13 @@
   :root {
     --header-height: 3.5rem;
 
-    --first-hue: 207;
+    /* AS monogram. Dark inverts to light: the tile stays the loudest element
+     in both themes instead of fading into a same-coloured nav. */
+  --mark-stop-a: hsl(207, 90%, 72%);
+  --mark-stop-b: hsla(207, 90%, 72%, 0.22);
+  --mark-initials: hsl(219, 48%, 8%);
+
+  --first-hue: 207;
     --sat: 90%;
     --lig: 72%;
     --second-hue: 219;
@@ -87,7 +93,7 @@
     --body-color: hsl(var(--second-hue), 48%, 8%);
     --container-color: hsl(var(--second-hue), 32%, 12%);
 
-    --body-font: "Poppins", sans-serif;
+    --body-font: var(--font-poppins), "Poppins", sans-serif;
 
     --biggest-font-size: 1.75rem;
     --h1-font-size: 1.5rem;
@@ -109,6 +115,11 @@
     --text-color: hsl(var(--second-hue), 8%, 35%);
     --body-color: hsl(var(--second-hue), 100%, 99%);
     --container-color: #fff;
+
+    /* Monogram inverts: navy tile, accent initials. */
+    --mark-stop-a: hsl(219, 48%, 8%);
+    --mark-stop-b: hsl(219, 48%, 8%);
+    --mark-initials: hsl(207, 90%, 72%);
   }
 
   @media screen and (min-width: 968px) {
@@ -254,6 +265,71 @@
 
   .swiper-pagination-bullet-active {
     background-color: var(--first-color);
+  }
+
+  /* AS monogram — SVG presentation attributes can't take var() reliably, so
+     the fills are applied here from the --mark-* tokens. */
+  .as-mark-stop-a {
+    stop-color: var(--mark-stop-a);
+  }
+
+  .as-mark-stop-b {
+    stop-color: var(--mark-stop-b);
+  }
+
+  .as-mark-initials {
+    fill: var(--mark-initials);
+    font-family: var(--body-font);
+  }
+
+  /* Work-card artwork: logos settle in one at a time, then drift gently.
+     The animations are on nested groups so they compose with the positioning
+     transform rather than overriding it. */
+  .stack-logo {
+    animation: stack-logo-in 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+
+  /* The work-card artwork is a white tile; in light mode the card behind it is
+     white too, so it needs a visible hairline to read as a separate object.
+     Transparent in dark, where the white tile already carries the contrast. */
+  .stack-art-frame {
+    stroke: transparent;
+  }
+
+  body.light__theme .stack-art-frame {
+    stroke: hsla(219, 32%, 12%, 0.18);
+  }
+
+  .stack-float {
+    animation: stack-float 6s ease-in-out infinite;
+  }
+
+  @keyframes stack-logo-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes stack-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-logo,
+    .stack-float {
+      animation: none;
+    }
   }
 
   /* Styles the Boxicons glyph itself, reached from its section. */

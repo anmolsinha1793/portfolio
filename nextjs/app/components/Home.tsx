@@ -28,13 +28,17 @@ export default function Home() {
       <div
         className={`relative grid gap-x-5 gap-y-18 pt-8 ${CONTAINER}`}
       >
-        <div className="text-center">
+        {/* ScrollReveal stamps data-sr-id on these four; the dynamic import
+            can resolve mid-hydration, so React sees an attribute the server
+            HTML never had. suppressHydrationWarning is the documented tool for
+            DOM mutated outside React. */}
+        <div className="text-center" suppressHydrationWarning>
           <span className="mb-1 block text-small font-medium text-title">
             Hello, I&apos;m
           </span>
           <h1 className="text-biggest">Anmol Aditya Sinha</h1>
           <h3 className="mb-1 text-small font-medium text-text">
-            Senior Frontend Developer/Aspiring Architect
+            AI/Gen AI certified engineer
           </h3>
 
           <div className="flex items-center justify-center gap-6 [@media(max-width:320px)]:flex-col">
@@ -51,7 +55,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex h-[293px] w-[190px] items-end justify-center justify-self-center overflow-hidden rounded-t-[10rem] rounded-b-[1rem] bg-[linear-gradient(180deg,hsla(var(--first-hue),var(--sat),var(--lig),1),hsla(var(--first-hue),var(--sat),var(--lig),0.2))] [@media(max-width:320px)]:h-[253px] [@media(max-width:320px)]:w-[150px] lg:h-[300px] lg:w-[220px]">
+        <div
+          suppressHydrationWarning
+          className="flex h-[293px] w-[190px] items-end justify-center justify-self-center overflow-hidden rounded-t-[10rem] rounded-b-[1rem] bg-[linear-gradient(180deg,hsla(var(--first-hue),var(--sat),var(--lig),1),hsla(var(--first-hue),var(--sat),var(--lig),0.2))] [@media(max-width:320px)]:h-[253px] [@media(max-width:320px)]:w-[150px] lg:h-[300px] lg:w-[220px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={asset('/assets/img/prof__pic2.jpeg')}
@@ -60,7 +66,10 @@ export default function Home() {
           />
         </div>
 
-        <div className="home__social absolute bottom-20 left-0 grid gap-y-2">
+        <div
+          suppressHydrationWarning
+          className="home__social absolute bottom-20 left-0 grid gap-y-2"
+        >
           {SOCIALS.map((social) => (
             <a
               key={social.href}
@@ -77,6 +86,7 @@ export default function Home() {
 
         <a
           href="#about"
+          suppressHydrationWarning
           className="absolute -right-4 bottom-16 grid justify-items-center gap-y-9 text-first"
         >
           <i className="bx bx-mouse text-xl lg:text-[2rem]"></i>

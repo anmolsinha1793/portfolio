@@ -80,7 +80,7 @@ export default function Certificates() {
             type="button"
             onClick={() => setOpenIndex(index)}
             aria-label={`View the ${certificate.title} certificate`}
-            className="flex cursor-pointer flex-col rounded-xl bg-container p-2 text-left [transition:.3s] hover:ring-2 hover:ring-first focus-visible:ring-2 focus-visible:ring-first focus-visible:outline-none"
+            className="flex cursor-pointer flex-col rounded-xl bg-container p-2 text-left light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)] [transition:.3s] hover:ring-2 hover:ring-first focus-visible:ring-2 focus-visible:ring-first focus-visible:outline-none"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

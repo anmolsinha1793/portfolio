@@ -1,18 +1,18 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { asset } from '@/lib/asset';
+import StackArt from '@/app/components/StackArt';
 import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
 const PROJECTS = [
   {
-    image: asset('/assets/img/work2.jpg'),
+    techs: ['Angular', 'D3.js', 'Husky', 'i18n'],
     title:
       'A small application based on angular, husky hooks, internationalization and D3.js',
     href: 'https://angular-d3-charts-vw22.vercel.app/chart',
   },
   {
-    image: asset('/assets/img/work3.jpg'),
+    techs: ['React', 'Docker'],
     title: 'A small application based on react and docker',
     href: 'https://spacex-mission-react.vercel.app/missions',
   },
@@ -47,17 +47,15 @@ export default function Work() {
       <span className={SECTION_SUBTITLE}>My Portfolio</span>
       <h2 className={SECTION_TITLE}>Recent Works</h2>
 
-      <div className={`grid work__conatiner ${CONTAINER}`} ref={containerRef}>
+      <div className={`grid gap-5 work__conatiner ${CONTAINER}`} ref={containerRef}>
         {PROJECTS.map((project) => (
           <div
-            className="work__card mix web rounded-2xl bg-container p-4 lg:flex lg:items-center lg:gap-8 lg:p-5"
+            className="work__card mix web rounded-2xl bg-container p-4 light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)] lg:flex lg:items-center lg:gap-8 lg:p-5"
             key={project.href}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.image}
-              alt=""
-              className="mb-3 rounded-2xl sm:w-[295px] lg:mb-4"
+            <StackArt
+              techs={project.techs}
+              className="mb-3 h-auto w-full shrink-0 sm:w-[295px] lg:mb-4"
             />
             <span>
               <h3 className="mb-1 text-normal font-medium lg:mb-2">
