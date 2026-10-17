@@ -30,25 +30,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <head>
-        {/* Theme-aware favicons — the browser picks by its own colour scheme,
-            which is independent of the site's toggle. */}
-        <link
-          rel="icon"
-          type="image/svg+xml"
-          href={asset('/assets/img/mark-dark.svg')}
-          media="(prefers-color-scheme: dark)"
-        />
+        {/* Icons: a plain SVG first so browsers that ignore `media` on icon
+            links still get the new mark, then a light variant for those that
+            key off the colour scheme. The old PNG is deliberately gone — as
+            the last-declared icon it overrode these and kept the old favicon. */}
+        <link rel="icon" type="image/svg+xml" href={asset('/assets/img/mark-dark.svg')} />
         <link
           rel="icon"
           type="image/svg+xml"
           href={asset('/assets/img/mark-light.svg')}
           media="(prefers-color-scheme: light)"
         />
-        <link rel="shortcut icon" href={asset('/assets/img/favicon.png')} type="image/x-icon" />
         {/* Self-hosted: the CDN copy blocked rendering and set no font-display,
             which is what Lighthouse flagged. font files sit under
             public/assets/boxicons/ and carry font-display: swap. */}
-        <link href={asset('/assets/boxicons/boxicons.css')} rel="stylesheet" />
+        <link href={asset('/assets/boxicons/boxicons.min.css')} rel="stylesheet" />
       </head>
       <body suppressHydrationWarning>
         {children}

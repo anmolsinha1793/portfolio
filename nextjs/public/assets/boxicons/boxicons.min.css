@@ -1,0 +1,25 @@
+@font-face{font-family:boxicons;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/boxicons.woff2) format('woff2')}
+.bx{font-family:boxicons!important;font-weight:400;font-style:normal;font-variant:normal;line-height:1;text-rendering:auto;display:inline-block;text-transform:none;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.bx-award:before{content:"\e9bf"}
+.bx-book:before{content:"\e9e1"}
+.bx-book-open:before{content:"\e9ef"}
+.bx-briefcase-alt:before{content:"\ea01"}
+.bx-briefcase-alt-2:before{content:"\ea02"}
+.bx-check:before{content:"\ea41"}
+.bx-home-alt:before{content:"\eb13"}
+.bx-mail-send:before{content:"\eb53"}
+.bx-message-square-detail:before{content:"\eb80"}
+.bx-moon:before{content:"\eb94"}
+.bx-mouse:before{content:"\eb95"}
+.bx-right-arrow-alt:before{content:"\ebe6"}
+.bx-sun:before{content:"\ec34"}
+.bx-user:before{content:"\ec63"}
+.bx-x:before{content:"\ec8d"}
+.bxl-facebook:before{content:"\e92f"}
+.bxl-facebook-square:before{content:"\e931"}
+.bxl-github:before{content:"\e93a"}
+.bxl-instagram:before{content:"\e942"}
+.bxl-linkedin-square:before{content:"\e94e"}
+.bxl-messenger:before{content:"\e957"}
+.bxl-whatsapp:before{content:"\e98a"}
+.bxs-badge-check:before{content:"\ecb6"}

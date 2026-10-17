@@ -57,13 +57,13 @@ const SKILL_CARDS: SkillCard[] = [
     ],
   },
   {
-    // Drawn from the Certified Scrum Master and Leadership certificates.
+    // Drawn from the Leadership and Customer Success Manager certificates.
     title: 'Leadership & Management',
     groups: [
       [
-        { name: 'Agile & Scrum', level: 'Intermediate' },
-        { name: 'Sprint Planning', level: 'Intermediate' },
-        { name: 'Backlog Refinement', level: 'Intermediate' },
+        { name: 'Agile Delivery', level: 'Intermediate' },
+        { name: 'Project Planning', level: 'Intermediate' },
+        { name: 'Delivery Management', level: 'Intermediate' },
       ],
       [
         { name: 'Team Leadership', level: 'Intermediate' },

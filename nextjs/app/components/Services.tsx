@@ -7,7 +7,7 @@ const SERVICES = [
   {
     title: 'Product Development',
     description:
-      'Service with more than 8 years of proven experience. Providing quality work to clients, customers and companies.',
+      'Service with more than 10 years of proven experience. Providing quality work to clients, customers and companies.',
     items: [
       'I gather requirements',
       'I participate in sprint planning meetings',

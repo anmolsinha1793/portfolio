@@ -25,7 +25,7 @@ const CERTIFICATES: Certificate[] = [
   { slug: 'devops-practitioner', title: 'DevOps Practitioner' },
   { slug: 'kubernets-certification', title: 'Kubernetes' },
   { slug: 'version-control-git', title: 'Version Control (Git)' },
-  { slug: 'csm-adi', title: 'Certified Scrum Master' },
+  { slug: 'csm-adi', title: 'Customer Success Manager' },
   { slug: 'java-fs-with-angular', title: 'Java Full Stack with Angular' },
   { slug: 'core-java-certification', title: 'Core Java' },
   { slug: 'nodejs-certification', title: 'Node.js' },

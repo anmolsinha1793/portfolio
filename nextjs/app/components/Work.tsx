@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import StackArt from '@/app/components/StackArt';
 import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
@@ -19,35 +18,12 @@ const PROJECTS = [
 ];
 
 export default function Work() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    let mixer: { destroy: () => void } | undefined;
-    let cancelled = false;
-
-    void import('mixitup').then(({ default: mixitup }) => {
-      if (cancelled) return;
-      mixer = mixitup(container, {
-        selectors: { target: '.work__card' },
-        animation: { duration: 300 },
-      });
-    });
-
-    return () => {
-      cancelled = true;
-      mixer?.destroy();
-    };
-  }, []);
-
   return (
     <section className={SECTION} id="work">
       <span className={SECTION_SUBTITLE}>My Portfolio</span>
       <h2 className={SECTION_TITLE}>Recent Works</h2>
 
-      <div className={`grid gap-5 work__conatiner ${CONTAINER}`} ref={containerRef}>
+      <div className={`grid gap-5 work__conatiner ${CONTAINER}`}>
         {PROJECTS.map((project) => (
           <div
             className="work__card mix web rounded-2xl bg-container p-4 light:shadow-[0_2px_16px_hsla(var(--second-hue),48%,8%,0.1)] lg:flex lg:items-center lg:gap-8 lg:p-5"
