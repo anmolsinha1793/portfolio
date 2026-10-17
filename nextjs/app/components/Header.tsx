@@ -1,5 +1,6 @@
 'use client';
 
+import AsMark from '@/app/components/AsMark';
 import {
   playClickSound,
   useScrollActiveLink,
@@ -32,8 +33,9 @@ export default function Header() {
       <nav className="mx-4 flex h-[var(--header-height)] max-w-[968px] items-center justify-between lg:mx-auto lg:h-[calc(var(--header-height)+1rem)]">
         <a
           href="#"
-          className="font-medium text-first [transition:.4s] hover:text-first-alt hover:outline-none"
+          className="flex items-center gap-2 font-medium text-first [transition:.4s] hover:text-first-alt hover:outline-none"
         >
+          <AsMark className="h-7 w-7 shrink-0" />
           Anmol
         </a>
 
