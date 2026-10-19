@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Toast, { ToastType } from './Toast';
 import { CONTAINER, SECTION } from './styles';
 
 const EMAIL_PATTERN =
@@ -58,6 +59,7 @@ export default function Contact() {
     project: false,
   });
   const [status, setStatus] = useState<SendStatus>('idle');
+  const [toast, setToast] = useState<{ open: boolean; type: ToastType; message: string; title?: string } | null>(null);
 
   const isComplete =
     values.name.trim().length > 0 &&
@@ -110,7 +112,6 @@ export default function Contact() {
           name: values.name,
           email: values.mail,
           message: values.project,
-          // Honeypot: Web3Forms rejects the submission when this is filled.
           botcheck: new FormData(event.currentTarget).get('botcheck') ?? '',
         }),
       });
@@ -124,14 +125,16 @@ export default function Contact() {
         throw new Error(result.message || `Request failed (${response.status})`);
       }
 
-      window.alert('Message sent');
+      // Show toast instead of alert
+      setToast({ open: true, type: 'success', message: 'Message sent', title: 'Success' });
       setValues({ name: '', mail: '', project: '' });
     } catch (error) {
-      window.alert(
-        `Sorry, the message could not be sent. ${
-          error instanceof Error ? error.message : 'Please try again.'
-        }`
-      );
+      setToast({
+        open: true,
+        type: 'error',
+        message: error instanceof Error ? error.message : 'An error occurred',
+        title: 'Failed',
+      });
     } finally {
       setStatus('idle');
     }
@@ -240,6 +243,16 @@ export default function Contact() {
           </form>
         </div>
       </div>
+
+      {toast && (
+        <Toast
+          open={toast.open}
+          type={toast.type}
+          title={toast.title}
+          message={toast.message}
+          onClose={() => setToast(null)}
+        />
+      )}
     </section>
   );
 }
