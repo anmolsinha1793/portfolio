@@ -1,6 +1,25 @@
 'use client';
 
-import { siAngular, siD3, siDocker, siReact } from 'simple-icons';
+import {
+  siAngular,
+  siApollographql,
+  siAxios,
+  siCloudinary,
+  siD3,
+  siDocker,
+  siExpress,
+  siGraphql,
+  siJsonwebtokens,
+  siMapbox,
+  siMaterialdesign,
+  siMongodb,
+  siMongoose,
+  siNextdotjs,
+  siNodedotjs,
+  siReact,
+  siSemanticuireact,
+  siStripe,
+} from 'simple-icons';
 
 /**
  * The work-card artwork: a white tile carrying the project's brand marks in
@@ -16,9 +35,19 @@ import { siAngular, siD3, siDocker, siReact } from 'simple-icons';
  */
 const VB_W = 600;
 const VB_H = 400;
-const ICON = 120;
-const GAP = 84;
-const SCALE = ICON / 24;
+const MAX_ICON = 120;
+const MAX_SHOWN = 6;
+
+/** Icons shrink as the stack grows so a wide list still fits the tile. */
+function layout(count: number) {
+  const gap =
+    count <= 2 ? 84 : count === 3 ? 60 : count === 4 ? 44 : count === 5 ? 32 : 24;
+  const icon = Math.min(
+    MAX_ICON,
+    Math.floor((VB_W - 48 - (count - 1) * gap) / count)
+  );
+  return { icon, gap };
+}
 
 const LOGOS = [
   // simple-icons carries Angular's current near-black brand colour; override it
@@ -27,6 +56,20 @@ const LOGOS = [
   { label: 'D3.js', icon: siD3 },
   { label: 'React', icon: siReact },
   { label: 'Docker', icon: siDocker },
+  { label: 'Next.js', icon: siNextdotjs },
+  { label: 'MongoDB', icon: siMongodb },
+  { label: 'Mongoose', icon: siMongoose },
+  { label: 'Stripe', icon: siStripe },
+  { label: 'JSON Web Tokens', icon: siJsonwebtokens },
+  { label: 'Cloudinary', icon: siCloudinary },
+  { label: 'Semantic UI React', icon: siSemanticuireact },
+  { label: 'Axios', icon: siAxios },
+  { label: 'GraphQL', icon: siGraphql },
+  { label: 'Apollo', icon: siApollographql },
+  { label: 'Express', icon: siExpress },
+  { label: 'Material-UI', icon: siMaterialdesign },
+  { label: 'Mapbox', icon: siMapbox },
+  { label: 'Node.js', icon: siNodedotjs },
 ];
 
 const channel = (c: number) =>
@@ -72,12 +115,17 @@ export default function StackArt({
   techs: string[];
   className?: string;
 }) {
-  const shown = LOGOS.filter((logo) => techs.includes(logo.label));
+  // Follow the order the caller listed, so the headline techs lead.
+  const shown = techs
+    .map((tech) => LOGOS.find((logo) => logo.label === tech))
+    .filter((logo): logo is (typeof LOGOS)[number] => Boolean(logo))
+    .slice(0, MAX_SHOWN);
   if (!shown.length) return null;
 
-  const totalW = shown.length * ICON + (shown.length - 1) * GAP;
+  const { icon, gap } = layout(shown.length);
+  const totalW = shown.length * icon + (shown.length - 1) * gap;
   const startX = (VB_W - totalW) / 2;
-  const top = (VB_H - ICON) / 2;
+  const top = (VB_H - icon) / 2;
 
   return (
     <svg
@@ -107,12 +155,12 @@ export default function StackArt({
         // element and the two animated transforms compose beneath it.
         <g
           key={logo.label}
-          transform={`translate(${startX + index * (ICON + GAP)}, ${top})`}
+          transform={`translate(${startX + index * (icon + gap)}, ${top})`}
         >
           <g className="stack-float" style={{ animationDelay: `${index * 700}ms` }}>
             <g className="stack-logo" style={{ animationDelay: `${index * 110}ms` }}>
               <g
-                transform={`scale(${SCALE})`}
+                transform={`scale(${icon / 24})`}
                 fill={forWhiteTile(logo.color ?? logo.icon.hex)}
               >
                 <path d={logo.icon.path} />

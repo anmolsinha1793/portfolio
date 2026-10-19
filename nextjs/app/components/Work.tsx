@@ -5,6 +5,41 @@ import { CONTAINER, SECTION, SECTION_SUBTITLE, SECTION_TITLE } from './styles';
 
 const PROJECTS = [
   {
+    techs: [
+      'React',
+      'MongoDB',
+      'GraphQL',
+      'Apollo',
+      'Express',
+      'Mongoose',
+      'Material-UI',
+      'Mapbox',
+      'Node.js',
+      'Axios',
+    ],
+    title:
+      'A full-stack geolocation app with React, GraphQL subscriptions, Apollo Server, MongoDB and Mapbox integration',
+    href: 'https://react-graphql-geolocation.vercel.app',
+  },
+  {
+    // The artwork shows the first six that have a simple-icons mark; the rest
+    // are listed here so the stack is recorded even where no logo exists.
+    techs: [
+      'Next.js',
+      'React',
+      'MongoDB',
+      'Stripe',
+      'JSON Web Tokens',
+      'Cloudinary',
+      'Mongoose',
+      'Semantic UI React',
+      'Axios',
+    ],
+    title:
+      'A full-stack shopping cart with Next.js API routes, MongoDB, JWT authentication and Stripe checkout',
+    href: 'https://react-shopping-cart-nextjs-anmol-sinhas-projects.vercel.app',
+  },
+  {
     techs: ['Angular', 'D3.js', 'Husky', 'i18n'],
     title:
       'A small application based on angular, husky hooks, internationalization and D3.js',
